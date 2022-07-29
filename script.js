@@ -1,6 +1,8 @@
 let menu = document.querySelector('#menu-btn');
 let navbar = document.querySelector('.navbar');
 //
+
+// sự kiện onclick of menu
 menu.onclick = () => {
     menu.classList.toggle('fa-times');
     navbar.classList.toggle('active');
@@ -14,6 +16,7 @@ document.querySelector("#close-login-form").onclick = () => {
     document.querySelector('.login-form-container').classList.remove('active');
 }
 
+// Sự kiện xảy ra khi dùng thanh cuộn
 window.onscroll = () => {
     if(window.scrollY > 0) {
         document.querySelector('.header').classList.add('active');
@@ -51,8 +54,6 @@ document.querySelector('.home').onmousemove = (e) =>{
 document.querySelector('.home').onmouseleave = () =>{
 
     document.querySelectorAll('.home-parallax').forEach(elm =>{
-
-
 
         elm.style.transform = `translateX(0px) translateY(0px)`;
 

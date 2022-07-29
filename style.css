@@ -269,6 +269,20 @@ section {
     color: #eee;
 }
 
+.car .car-slider{
+    padding-bottom: 5rem;
+}
+
+.car .car-slider .box {
+    text-align: center;
+    width: 30rem;
+}
+
+.car .car-slider .box img {
+    width: 100%;
+    opacity: .5;
+    transform: scale(.8);
+}
 
 
 
