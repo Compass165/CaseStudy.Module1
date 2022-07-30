@@ -1,0 +1,10 @@
+.addproduct{
+    padding-top: 10rem;
+    text-align: center;
+    overflow-x: hidden;
+}
+.addproduct h1{
+    font-size: 7.5vw;
+    text-transform: uppercase;
+    color: var(--black);
+}

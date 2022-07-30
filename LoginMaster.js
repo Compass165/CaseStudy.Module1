@@ -23,9 +23,11 @@ function redirectAdmin() {
 }
 function logout(){
     alert("Bạn đã đăng xuất khỏi tài khoản");
-    window.location = "index.html";
+    window.location.href = "../index.html";
 }
 
-function openProduct() {
-    window.location = "addproduct.html";
+function backManager(){
+    window.location.href = "../LoginMaster.html"
 }
+
+
