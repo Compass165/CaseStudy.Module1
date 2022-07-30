@@ -23,6 +23,9 @@ function redirectAdmin() {
 }
 function logout(){
     alert("Bạn đã đăng xuất khỏi tài khoản");
-    window.location = "index.html"
+    window.location = "index.html";
 }
 
+function openProduct() {
+    window.location = "addproduct.html";
+}
