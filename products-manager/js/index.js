@@ -7,18 +7,96 @@ function resetEle() {
     getEle("btnUpdate").style.display = "none";
 }
 
-function getListProduct() {
-    axios({
-        url: "https://62caa3003e924a01285c6589.mockapi.io/products",
-        method: "GET",
-    })
-        .then((result) => {
-            renderProducts(result.data);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+let product = {
+    id: "1",
+    name: "VF9",
+    price: 1571900000,
+    screen: "new",
+    backCamera: 2022,
+    frontCamera: "Điện",
+    img: src= "http://localhost:63342/index.html/imageVF/vf9_0..jpg",
+    desc: "Mẫu xe mới, tiết kiệm nhiên liệu, đột phá về phong cách" ,
+    type: "200km/h",
 }
+
+let product2 = {
+    id: "2",
+    name: "VF8",
+    price: 1443200000,
+    screen: "new",
+    backCamera: 2022,
+    frontCamera: "Điện",
+    img: src= "http://localhost:63342/index.html/imageVF/vf8_0.jpg",
+    desc: "Mẫu xe mới, tiết kiệm nhiên liệu, đột phá về phong cách" ,
+    type: "183km/h",
+}
+
+let product3 = {
+    id: "3",
+    name: "VFE 34",
+    price: 690000000,
+    screen: "new",
+    backCamera: 2022,
+    frontCamera: "Điện",
+    img: src= "http://localhost:63342/index.html/imageVF/vf94_0.jpg",
+    desc: "Mẫu xe mới, tiết kiệm nhiên liệu, đột phá về phong cách" ,
+    type: "183km/h",
+}
+
+let product4 = {
+    id: "4",
+    name: "VF President",
+    price: 4600000000,
+    screen: "new",
+    backCamera: 2021,
+    frontCamera: "Xăng",
+    img: src= "http://localhost:63342/index.html/imageVF/vfP_1.jpg",
+    desc: "Mẫu xe mới, tiết kiệm nhiên liệu, đột phá về phong cách" ,
+    type: "200km/h",
+}
+
+let product5 = {
+    id: "5",
+    name: "VF LUX SA2.0",
+    price: 1552090000,
+    screen: "new",
+    backCamera: 2021,
+    frontCamera: "Xăng",
+    img: src= "http://localhost:63342/index.html/imageVF/sa_0.jpg",
+    desc: "Mẫu xe mới, tiết kiệm nhiên liệu, đột phá về phong cách" ,
+    type: "183km/h",
+}
+
+let product6 = {
+    id: "6",
+    name: "VF LUX A2.0",
+    price: 1115000000,
+    screen: "new",
+    backCamera: 2021,
+    frontCamera: "Xăng",
+    img: src= "http://localhost:63342/index.html/imageVF/a_0.jpg",
+    desc: "Mẫu xe mới, tiết kiệm nhiên liệu, đột phá về phong cách" ,
+    type: "183km/h",
+}
+
+let product7 = {
+    id: "7",
+    name: "VF FADIL",
+    price: 480000000,
+    screen: "new",
+    backCamera: 2021,
+    frontCamera: "Xăng",
+    img: src= "http://localhost:63342/index.html/imageVF/fadil_0.jpg",
+    desc: "Mẫu xe mới, tiết kiệm nhiên liệu, đột phá về phong cách" ,
+    type: "183km/h",
+}
+
+let arrproduct = [product, product2, product3, product4, product5, product6, product7];
+
+function getListProduct() {
+    renderProducts(arrproduct);
+}
+
 getListProduct();
 
 function renderProducts(data) {
@@ -74,16 +152,16 @@ function renderProducts(data) {
 }
 
 function createProduct() {
-    var isOk = isValidate.find((x) => x === false);
-    if (isOk === undefined) {
-        var prodName = getEle("prodName").value;
-        var prodPrice = getEle("prodPrice").value;
-        var prodScreen = getEle("prodScreen").value;
-        var prodBackCam = getEle("prodBackCam").value;
-        var prodFrontCam = getEle("prodFrontCam").value;
-        var prodImg = getEle("prodImg").value;
-        var prodDesc = getEle("prodDesc").value;
-        var prodType = getEle("prodType").value;
+
+        let form = document.getElementsByTagName("form")[0];
+        var prodName = form.querySelector("#productId").value;
+        var prodPrice = form.querySelector("#prodPrice").value;
+        var prodScreen = form.querySelector("#prodScreen").value;
+        var prodBackCam = form.querySelector("#prodBackCam").value;
+        var prodFrontCam = form.querySelector("#prodFrontCam").value;
+        var prodImg = form.querySelector("#prodImg").value;
+        var prodDesc = form.querySelector("#prodDesc").value;
+        var prodType = form.querySelector("#prodType").value;
 
         var product = new Product(
             prodName,
@@ -95,199 +173,71 @@ function createProduct() {
             prodDesc,
             prodType
         );
+        console.log(product);
 
-        axios({
-            url: "https://62caa3003e924a01285c6589.mockapi.io/products",
-            method: "POST",
-            data: product,
-        })
-            .then((result) => {
-                getEle("btnReset").click();
-                getEle("btnCloseModal").click();
-                getListProduct();
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    } else {
-        alert("Please check the product information again !!");
-    }
+        arrproduct.push(product);
+        getEle("btnReset").click();
+        getEle("btnCloseModal").click();
+        getListProduct();
+
 }
 
-function deleteProduct(id) {
+function deleteProduct(prodName) {
     if (confirm("Are you sure you want to delete this product?")) {
-        axios({
-            url: "https://62caa3003e924a01285c6589.mockapi.io/products/" + id,
-            method: "DELETE",
-        })
-            .then(function (result) {
-                getListProduct();
-            })
-            .catch(function (error) {
-                alert("Delete failed");
-                console.log(error);
-            });
+        arrproduct.splice(prodName, 1);
+        getListProduct();
     }
 }
-
+var form = document.getElementsByTagName("form")[0];
 function getProduct(id) {
-    axios({
-        url: "https://62caa3003e924a01285c6589.mockapi.io/products/" + id,
-        method: "GET",
-    })
-        .then(function (result) {
-            getEle("btnAddProd").click();
+    // alert(id)
+    for (let i = 0; i < arrproduct.length; i++) {
+        let p = arrproduct[i];
+       if (p.id == id) {
 
-            getEle("productId").value = result.data.id;
-            getEle("prodName").value = result.data.name;
-            getEle("prodPrice").value = result.data.price;
-            getEle("prodScreen").value = result.data.screen;
-            getEle("prodBackCam").value = result.data.backCamera;
-            getEle("prodFrontCam").value = result.data.frontCamera;
-            getEle("prodImg").value = result.data.img;
-            getEle("prodDesc").value = result.data.desc;
-            getEle("prodType").value = result.data.type;
+           getEle("btnAddProd").click();
+           let form = document.getElementsByTagName("form")[0];
+           form.querySelector("#productId").value = p.id ;
+           form.querySelector("#prodPrice").value = p.price;
+           form.querySelector("#prodScreen").value = p.screen;
+           form.querySelector("#prodBackCam").value = p.backCamera;
+           form.querySelector("#prodFrontCam").value = p.frontCamera;
+           form.querySelector("#prodDesc").value = p.desc;
+           form.querySelector("#prodType").value = p.type;
+           getEle("btnAdd").style.display = "none";
+           getEle("btnUpdate").style.display = "block";
+       }
+    }
 
-            getEle("btnAdd").style.display = "none";
-            getEle("btnUpdate").style.display = "block";
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
 }
 
 function updateProduct() {
-    var isOk = isValidate.find((x) => x === false);
-    if (isOk === undefined) {
-        var prodId = getEle("productId").value;
-        var prodName = getEle("prodName").value;
-        var prodPrice = getEle("prodPrice").value;
-        var prodScreen = getEle("prodScreen").value;
-        var prodBackCam = getEle("prodBackCam").value;
-        var prodFrontCam = getEle("prodFrontCam").value;
-        var prodImg = getEle("prodImg").value;
-        var prodDesc = getEle("prodDesc").value;
-        var prodType = getEle("prodType").value;
 
-        var product = new Product(
-            prodName,
-            prodPrice,
-            prodScreen,
-            prodBackCam,
-            prodFrontCam,
-            prodImg,
-            prodDesc,
-            prodType
-        );
+    let prodId = form.querySelector("#productId").value;
+    let prodName = form.querySelector("#prodName").value;
+    let prodPrice = form.querySelector("#prodPrice").value;
+    let prodScreen = form.querySelector("#prodScreen").value;
+    let prodBackCam = form.querySelector("#prodBackCam").value;
+    let prodFrontCam = form.querySelector("#prodFrontCam").value;
+    let prodImg = form.querySelector("#prodImg").value;
+    let prodDesc = form.querySelector("#prodDesc").value;
+    let prodType = form.querySelector("#prodType").value;
 
-        axios({
-            url:
-                "https://62caa3003e924a01285c6589.mockapi.io/products/" +
-                prodId,
-            method: "PUT",
-            data: product,
-        })
-            .then(function (result) {
-                getEle("btnReset").click();
-                getEle("btnAdd").style.display = "block";
-                getEle("btnUpdate").style.display = "none";
-                getEle("btnCloseModal").click();
+    for (let i = 0; i < arrproduct.length; i++) {
 
-                getListProduct();
-            })
-            .catch(function (error) {
-                alert("Update failed");
-                console.log(error);
-            });
-    } else {
-        alert("Please check the product information again !!");
+        if (prodId == arrproduct[i].id){
+            arrproduct[i].name = prodName ;
+            arrproduct[i].price = prodPrice;
+            arrproduct[i].screen = prodScreen;
+            arrproduct[i].backCamera = prodBackCam;
+            arrproduct[i].frontCamera = prodFrontCam;
+            arrproduct[i].img = prodImg;
+            arrproduct[i].desc = prodDesc;
+            arrproduct[i].type = prodType;
+            getEle("btnCloseModal").click();
+            getListProduct();
+
+        }
     }
 }
 
-// ----------- Validation---------------------
-var isValidate = [false, false, false, false, false, false, false, false];
-
-getEle("prodName").addEventListener("focusout", () => {
-    if (getEle("prodName").value.length > 0) {
-        getEle("spanName").innerHTML = "";
-        isValidate[0] = true;
-    } else {
-        getEle("spanName").innerHTML = "* This field is required";
-        isValidate[0] = false;
-    }
-});
-
-getEle("prodPrice").addEventListener("focusout", () => {
-    var letter = /^[0-9]+$/;
-    if (getEle("prodPrice").value.length === 0) {
-        getEle("spanPrice").innerHTML = "* This field is required";
-        isValidate[1] = false;
-    } else if (!getEle("prodPrice").value.match(letter)) {
-        getEle("spanPrice").innerHTML =
-            "* Please enter the correct format score";
-        isValidate[1] = false;
-    } else {
-        getEle("spanPrice").innerHTML = "";
-        isValidate[1] = true;
-    }
-});
-
-getEle("prodScreen").addEventListener("focusout", () => {
-    if (getEle("prodScreen").value.length > 0) {
-        getEle("spanScreen").innerHTML = "";
-        isValidate[2] = true;
-    } else {
-        getEle("spanScreen").innerHTML = "* This field is required";
-        isValidate[2] = false;
-    }
-});
-
-getEle("prodBackCam").addEventListener("focusout", () => {
-    if (getEle("prodBackCam").value.length > 0) {
-        getEle("spanBackCam").innerHTML = "";
-        isValidate[3] = true;
-    } else {
-        getEle("spanBackCam").innerHTML = "* This field is required";
-        isValidate[3] = false;
-    }
-});
-
-getEle("prodFrontCam").addEventListener("focusout", () => {
-    if (getEle("prodFrontCam").value.length > 0) {
-        getEle("spanFrontCam").innerHTML = "";
-        isValidate[4] = true;
-    } else {
-        getEle("spanFrontCam").innerHTML = "* This field is required";
-        isValidate[4] = false;
-    }
-});
-
-getEle("prodDesc").addEventListener("focusout", () => {
-    if (getEle("prodDesc").value.length > 0) {
-        getEle("spanDesc").innerHTML = "";
-        isValidate[5] = true;
-    } else {
-        getEle("spanDesc").innerHTML = "* This field is required";
-        isValidate[5] = false;
-    }
-});
-
-getEle("prodImg").addEventListener("focusout", () => {
-    if (getEle("prodImg").value.length > 0) {
-        getEle("spanImg").innerHTML = "";
-        isValidate[6] = true;
-    } else {
-        getEle("spanImg").innerHTML = "* This field is required";
-        isValidate[6] = false;
-    }
-});
-
-getEle("prodType").addEventListener("focusout", () => {
-    if (getEle("prodType").value.length > 0) {
-        getEle("spanType").innerHTML = "";
-        isValidate[7] = true;
-    } else {
-        getEle("spanType").innerHTML = "* This field is required";
-        isValidate[7] = false;
-    }
-});
